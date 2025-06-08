@@ -14,7 +14,7 @@ alumathPeer Group 10 / – Python package for matrix multiplication
 README.md – This file
 
 Instructions
-1. Running the PCA Notebook
+ Running the PCA Notebook
 Open the notebook in Google Colab or Jupyter.
 
 Dataset: Ensure african_crises.csv is in the same directory as the notebook.
