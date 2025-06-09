@@ -1,66 +1,62 @@
-Advanced Linear Algebra (PCA) – Formative Assignment
-Overview
-This repository contains our group’s submission for the  Machine Learning formative assignment on Principal Component Analysis (PCA). The project demonstrates a full PCA implementation from scratch (using only NumPy), eigenvalue/eigenvector analysis, and a custom matrix multiplication library.
+# Advanced Linear Algebra (PCA) – Formative Assignment
 
-Contents
-notebook/ – Google Colab notebook with code and outputs
+## Overview
 
-african_crises.csv – Africanized dataset used for PCA
+This repository contains our group’s submission for the Machine Learning formative assignment on **Principal Component Analysis (PCA)**. The project demonstrates a full PCA implementation from scratch using only **NumPy**, including eigenvalue/eigenvector analysis and a custom matrix multiplication library.
 
-handwritten_calculations.pdf – PDF of eigenvalue/eigenvector calculations (handwritten)
+---
 
-alumathPeer Group 10 / – Python package for matrix multiplication
+## Contents
 
-README.md – This file
+- `notebook/` – Google Colab notebook with PCA code and outputs  
+- `african_crises.csv` – Africanized dataset used for PCA  
+- `handwritten_calculations.pdf` – Manual eigenvalue and eigenvector calculations (handwritten)  
+- `alumathPeer Group 10/` – Python package for matrix multiplication  
+- `README.md` – This file  
 
-Instructions
- Running the PCA Notebook
-Open the notebook in Google Colab or Jupyter.
+---
 
-Dataset: Ensure african_crises.csv is in the same directory as the notebook.
+## Instructions
 
-Run each cell sequentially.
-The notebook covers:
+### Running the PCA Notebook
 
-Data loading and standardization (using only NumPy)
+1. Open the notebook in **Google Colab** or **Jupyter Notebook**.  
+2. Make sure `african_crises.csv` is in the same directory as the notebook.  
+3. Run each cell sequentially.
 
-Covariance matrix calculation
+### What the Notebook Covers
 
-Eigendecomposition (eigenvalues and eigenvectors)
+- Loading and standardizing data using **NumPy only** (no `sklearn` or `pandas` standardization)  
+- Covariance matrix calculation  
+- Eigendecomposition (computation of eigenvalues and eigenvectors)  
+- Sorting and selection of principal components  
+- Projecting data onto the principal components  
+- Visualization of dimensionality reduction  
 
-Sorting and selection of principal components
+---
 
-Projection of data onto principal components
+## Notes
 
-Visualization of dimensionality reduction
+- The handwritten eigenvalue and eigenvector calculations are provided in `handwritten_calculations.pdf` as proof of manual work and understanding.  
+- Each group member contributed to the calculations and signed the document as collaboration evidence.  
 
-Note:
-1. No sklearn or pandas standardization is used—only manual NumPy operations as required.
+---
 
-2. Handwritten Eigenvalue/Eigenvector Calculations
-See handwritten_calculations.pdf for manual calculations of eigenvalues, eigenvectors, and their importance.
+## Custom Matrix Multiplication Library
 
-Each group member contributed and signed the work for proof of collaboration.
+We developed a simple Python package for matrix multiplication named **alumathPeer Group 10**.
 
-3. Custom Matrix Multiplication Library
-We provide a simple Python package for matrix multiplication, published as alumathMember peer group 10.
+### Installation
 
-Installation
-
-bash
-pip install alumath_Peergroup10
-Usage
-
-python
-from alumath_Peer Group 10 .linalg import matmul
-import numpy as np
-
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[5, 6], [7, 8]])
-result = matmul(A, B)
-print(result)
-The function matmul(A, B) multiplies two matrices of compatible dimensions.
+```bash
+pip install matrixfun
+```
 
 
+| Github Profiles                   |
+|https://github.com/Makito042       |
+|https://github.com/Irakoze-Hortance| 
+|https://github.com/denismitali17   |
+|https://github.com/ngamije30       |
 
 
