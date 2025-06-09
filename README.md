@@ -52,11 +52,14 @@ We developed a simple Python package for matrix multiplication named **alumathPe
 pip install matrixfun
 ```
 
+## Contributors GitHub Profiles
 
-| Github Profiles                   |
-|https://github.com/Makito042       |
-|https://github.com/Irakoze-Hortance| 
-|https://github.com/denismitali17   |
-|https://github.com/ngamije30       |
+| Contributor             | GitHub Profile                                 |
+|------------------------|-----------------------------------------------|
+| Makito042              | [https://github.com/Makito042](https://github.com/Makito042)             |
+| Irakoze-Hortance       | [https://github.com/Irakoze-Hortance](https://github.com/Irakoze-Hortance) |
+| denismitali17          | [https://github.com/denismitali17](https://github.com/denismitali17)       |
+| ngamije30              | [https://github.com/ngamije30](https://github.com/ngamije30)               |
+
 
 
