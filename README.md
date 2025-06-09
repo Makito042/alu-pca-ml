@@ -1,6 +1,6 @@
 Advanced Linear Algebra (PCA) – Formative Assignment
 Overview
-This repository contains our group’s submission for the African Leadership University BSE Mathematics for Machine Learning formative assignment on Principal Component Analysis (PCA). The project demonstrates a full PCA implementation from scratch (using only NumPy), eigenvalue/eigenvector analysis, and a custom matrix multiplication library.
+This repository contains our group’s submission for the  Machine Learning formative assignment on Principal Component Analysis (PCA). The project demonstrates a full PCA implementation from scratch (using only NumPy), eigenvalue/eigenvector analysis, and a custom matrix multiplication library.
 
 Contents
 notebook/ – Google Colab notebook with code and outputs
@@ -48,7 +48,7 @@ We provide a simple Python package for matrix multiplication, published as aluma
 Installation
 
 bash
-pip install alumath-groupname
+pip install alumath_Peergroup10
 Usage
 
 python
@@ -61,29 +61,6 @@ result = matmul(A, B)
 print(result)
 The function matmul(A, B) multiplies two matrices of compatible dimensions.
 
-Deliverables Checklist
- Completed PCA notebook (with visible outputs)
-
- PDF of handwritten eigenvalue/eigenvector calculations
-
- Custom matrix multiplication library (alumath[groupname])
-
- This README with clear instructions
-
-Group Members
-Member 1: [Name], [GitHub username]
-
-Member 2: [Name], [GitHub username]
-
-Member 3: [Name], [GitHub username]
-
-Member 4: [Name], [GitHub username]
-
-
-License
-This project is for educational purposes only.
-
-If you have any questions or issues, please open an issue or contact any group member.
 
 
 
