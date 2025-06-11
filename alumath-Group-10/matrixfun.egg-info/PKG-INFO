@@ -1,34 +1,26 @@
 Metadata-Version: 2.4
-Name: matrixfun
+Name: alumathpeergroup10
 Version: 0.1.0
-Summary: A humorous matrix multiplication library in Python
-Author: Your Name
-License: MIT
-Classifier: Programming Language :: Python :: 3
-Classifier: License :: OSI Approved :: MIT License
+Summary: Matrix operations library for peer group 10
+Author: AluMath Peer Group 10
+Author-email: alumath.peergroup10@example.com
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
 Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Education
+Classifier: Topic :: Scientific/Engineering
 Classifier: Topic :: Scientific/Engineering :: Mathematics
 Requires-Python: >=3.7
-Description-Content-Type: text/markdown
-
-# matrixfun 🎉📊
-
-A fun and sassy Python matrix multiplication library that makes linear algebra tolerable (and funny).
-
-## Installation
-
-```bash
-pip install matrixfun
-```
-
-## Usage
-
-```python
-from matrixfun import multiply_matrices
-
-A = [[1, 2], [3, 4]]
-B = [[5], [6]]
-
-result = multiply_matrices(A, B)
-print(result)
-```
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: requires-python
+Dynamic: summary
