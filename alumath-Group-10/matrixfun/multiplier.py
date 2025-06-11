@@ -1,106 +1,186 @@
-from typing import List, Union
+from typing import Union, List, Any, Tuple
+from .matrix import Matrix
 
+def _validate_input(matrix: Any, name: str = 'input') -> None:
+    """Validate matrix input.
+    
+    Args:
+        matrix: Input to validate
+        name: Name of the parameter for error messages
+        
+    Raises:
+        TypeError: If input is None or not a valid matrix type
+    """
+    if matrix is None:
+        raise TypeError(f"Peer Group 10 says: {name} cannot be None")
+    
+    if not (isinstance(matrix, (Matrix, list)) and matrix):
+        raise TypeError(f"Peer Group 10 says: {name} must be a non-empty Matrix or 2D list")
 
-class Matrix:
+def _ensure_matrix(matrix: Any, name: str = 'input') -> Matrix:
+    """Convert input to Matrix if it isn't already.
+    
+    Args:
+        matrix: Either a Matrix object or a 2D list
+        name: Name of the parameter for error messages
+        
+    Returns:
+        Matrix object
+        
+    Raises:
+        TypeError: If input cannot be converted to a Matrix
+    """
+    _validate_input(matrix, name)
+    
+    if isinstance(matrix, Matrix):
+        return matrix
+        
+    try:
+        return Matrix(matrix)
+    except (TypeError, ValueError) as e:
+        raise TypeError(f"Peer Group 10 says: Could not convert {name} to Matrix: {str(e)}")
 
-    def __init__(self, data: List[List[Union[int, float]]]):
-        if not data or not data[0]:
-            raise ValueError("Matrix cannot be empty!")
+def multiply(matrix_a: Union[Matrix, List[List[float]]], 
+             matrix_b: Union[Matrix, List[List[float]]]) -> Matrix:
+    """Multiply two matrices.
+    
+    Args:
+        matrix_a: First matrix (Matrix or 2D list)
+        matrix_b: Second matrix (Matrix or 2D list)
+        
+    Returns:
+        New Matrix that is the product of matrix_a and matrix_b
+        
+    Raises:
+        ValueError: If matrices cannot be multiplied (inner dimensions don't match)
+        TypeError: If inputs cannot be converted to valid matrices
+    """
+    # First validate inputs
+    if matrix_a is None or matrix_b is None:
+        raise TypeError("Peer Group 10 says: Cannot multiply matrices: One or both matrices are None")
+    
+    # Convert to Matrix objects if they aren't already
+    a = Matrix(matrix_a) if not isinstance(matrix_a, Matrix) else matrix_a
+    b = Matrix(matrix_b) if not isinstance(matrix_b, Matrix) else matrix_b
+    
+    # Check for empty matrices
+    if a.rows == 0 or a.cols == 0 or b.rows == 0 or b.cols == 0:
+        raise ValueError("Peer Group 10 says: Cannot multiply matrices: One or both matrices are empty")
+    
+    # Validate dimensions for multiplication
+    if a.cols != b.rows:
+        raise ValueError(
+            f"Peer Group 10 says: Cannot multiply matrices with shapes {a.shape} and {b.shape}: "
+            f"columns of first matrix ({a.cols}) must equal rows of second matrix ({b.rows})"
+        )
+    
+    # Perform the multiplication
+    result = []
+    for i in range(a.rows):
+        row = []
+        for j in range(b.cols):
+            # Calculate dot product of row i of a and column j of b
+            total = 0
+            for k in range(a.cols):
+                total += a.get(i, k) * b.get(k, j)
+            row.append(total)
+        result.append(row)
+    
+    return Matrix(result)
 
-        row_length = len(data[0])
-        for i, row in enumerate(data):
-            if len(row) != row_length:
-                raise ValueError(f"All rows must have the same length. Row {i} has length {len(row)}, expected {row_length}")
-
-        self.data = data
-        self.rows = len(data)
-        self.cols = len(data[0])
-
-    def __str__(self):
-        result = []
-        for row in self.data:
-            result.append("[" + " ".join(f"{x:8.2f}" for x in row) + "]")
-        return "\n".join(result)
-
-    def __repr__(self):
-        return f"Matrix({self.rows}x{self.cols})"
-
-    def get_dimensions(self):
-        return (self.rows, self.cols)
-
-
-class MatrixMultiplicationError(Exception):
-    def __init__(self, message, error_type="general"):
-        self.error_type = error_type
-        super().__init__(message)
-
-
-class MatrixMultiplier:
-    @staticmethod
-    def _get_detailed_error(matrix1_dims, matrix2_dims):
-        """Generate a detailed technical error message for invalid multiplication."""
-        message = "\n❌ Matrix Multiplication Error ❌\n\n"
-        message += "Matrix dimensions are not compatible for multiplication.\n\n"
-        message += f"📊 Matrix A dimensions: {matrix1_dims[0]} x {matrix1_dims[1]}\n"
-        message += f"📊 Matrix B dimensions: {matrix2_dims[0]} x {matrix2_dims[1]}\n"
-        message += "\n📌 Rule: The number of columns in Matrix A must equal the number of rows in Matrix B.\n"
-        message += "💡 Tip: Check the shape of your matrices before multiplying.\n"
-        return message
-
-    @staticmethod
-    def multiply(matrix1: Union[Matrix, List[List]], matrix2: Union[Matrix, List[List]]) -> Matrix:
-        if not isinstance(matrix1, Matrix):
-            matrix1 = Matrix(matrix1)
-        if not isinstance(matrix2, Matrix):
-            matrix2 = Matrix(matrix2)
-
-        if matrix1.cols != matrix2.rows:
-            detailed_error = MatrixMultiplier._get_detailed_error(
-                matrix1.get_dimensions(), 
-                matrix2.get_dimensions()
+def add(matrix_a: Union[Matrix, List[List[float]]], 
+        matrix_b: Union[Matrix, List[List[float]]]) -> Matrix:
+    """Add two matrices.
+    
+    Args:
+        matrix_a: First matrix (Matrix or 2D list)
+        matrix_b: Second matrix (Matrix or 2D list)
+        
+    Returns:
+        New Matrix that is the sum of matrix_a and matrix_b
+        
+    Raises:
+        ValueError: If matrices have different shapes
+        TypeError: If inputs cannot be converted to valid matrices
+    """
+    try:
+        a = _ensure_matrix(matrix_a, 'first matrix')
+        b = _ensure_matrix(matrix_b, 'second matrix')
+        
+        if a.shape != b.shape:
+            raise ValueError(
+                f"Peer Group 10 says: Cannot add matrices with different shapes: {a.shape} and {b.shape}"
             )
-            raise MatrixMultiplicationError(detailed_error, "dimension_mismatch")
-
-        result_rows = matrix1.rows
-        result_cols = matrix2.cols
-        result = [[0 for _ in range(result_cols)] for _ in range(result_rows)]
-
-        for i in range(result_rows):
-            for j in range(result_cols):
-                for k in range(matrix1.cols):
-                    result[i][j] += matrix1.data[i][k] * matrix2.data[k][j]
-
+        
+        result = [
+            [a.get(i, j) + b.get(i, j) for j in range(a.cols)]
+            for i in range(a.rows)
+        ]
+        
         return Matrix(result)
+    except Exception as e:
+        if not isinstance(e, (ValueError, TypeError)):
+            raise ValueError(f"Peer Group 10 says: Matrix addition failed: {str(e)}")
+        raise
 
-    @staticmethod
-    def can_multiply(matrix1: Union[Matrix, List[List]], matrix2: Union[Matrix, List[List]]) -> bool:
-        if not isinstance(matrix1, Matrix):
-            matrix1 = Matrix(matrix1)
-        if not isinstance(matrix2, Matrix):
-            matrix2 = Matrix(matrix2)
-
-        return matrix1.cols == matrix2.rows
-
-    @staticmethod
-    def get_result_dimensions(matrix1: Union[Matrix, List[List]], matrix2: Union[Matrix, List[List]]) -> tuple:
-        if not isinstance(matrix1, Matrix):
-            matrix1 = Matrix(matrix1)
-        if not isinstance(matrix2, Matrix):
-            matrix2 = Matrix(matrix2)
-
-        if not MatrixMultiplier.can_multiply(matrix1, matrix2):
-            detailed_error = MatrixMultiplier._get_detailed_error(
-                matrix1.get_dimensions(), 
-                matrix2.get_dimensions()
+def subtract(matrix_a: Union[Matrix, List[List[float]]], 
+             matrix_b: Union[Matrix, List[List[float]]]) -> Matrix:
+    """Subtract one matrix from another.
+    
+    Args:
+        matrix_a: First matrix (Matrix or 2D list)
+        matrix_b: Second matrix (Matrix or 2D list)
+        
+    Returns:
+        New Matrix that is matrix_a - matrix_b
+        
+    Raises:
+        ValueError: If matrices have different shapes
+        TypeError: If inputs cannot be converted to valid matrices
+    """
+    try:
+        a = _ensure_matrix(matrix_a, 'first matrix')
+        b = _ensure_matrix(matrix_b, 'second matrix')
+        
+        if a.shape != b.shape:
+            raise ValueError(
+                f"Peer Group 10 says: Cannot subtract matrices with different shapes: {a.shape} and {b.shape}"
             )
-            raise MatrixMultiplicationError(detailed_error, "dimension_mismatch")
+        
+        result = [
+            [a.get(i, j) - b.get(i, j) for j in range(a.cols)]
+            for i in range(a.rows)
+        ]
+        
+        return Matrix(result)
+    except Exception as e:
+        if not isinstance(e, (ValueError, TypeError)):
+            raise ValueError(f"Peer Group 10 says: Matrix subtraction failed: {str(e)}")
+        raise
 
-        return (matrix1.rows, matrix2.cols)
-
-
-def multiply_matrices(matrix1, matrix2):
-    return MatrixMultiplier.multiply(matrix1, matrix2)
-
-
-def create_matrix(data):
-    return Matrix(data)
+def transpose(matrix: Union[Matrix, List[List[float]]]) -> Matrix:
+    """Transpose a matrix.
+    
+    Args:
+        matrix: Input matrix (Matrix or 2D list)
+        
+    Returns:
+        New Matrix that is the transpose of the input
+        
+    Raises:
+        TypeError: If input cannot be converted to a valid matrix
+    """
+    try:
+        m = _ensure_matrix(matrix, 'input matrix')
+        
+        # Create a new matrix with swapped rows and columns
+        result = [
+            [m.get(j, i) for j in range(m.rows)]
+            for i in range(m.cols)
+        ]
+        
+        return Matrix(result)
+    except Exception as e:
+        if not isinstance(e, TypeError):
+            raise ValueError(f"Peer Group 10 says: Matrix transpose failed: {str(e)}")
+        raise
