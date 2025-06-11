@@ -21,12 +21,6 @@ This Python module provides a fun and quirky interface for performing matrix mul
 
 ### Installation
 
-Clone this repo or download the files:
-
-```bash
-git clone https://github.com/Makito042/alu-pca-ml.git
-cd alu-pca-ml/alumath_group10
-```
 
 ```bash
 pip install alumathpeergroup10
